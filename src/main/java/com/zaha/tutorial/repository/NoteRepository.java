@@ -37,9 +37,9 @@ public class NoteRepository {
         return note;
     }
 
-    public Optional<Note> findById(Long id) {
-        throw new UnsupportedOperationException("Not implemented yet");
-        // TODO: Implement this method to return a note with the given ID
+    public Optional<Note> findById(Long id) {       
+        return notes.stream().filter(note -> note.getId().equals(id));
+        // [DONE] TODO: Implement this method to return a note with the given ID
     }
 
     public boolean deleteById(Long id) {

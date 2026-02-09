@@ -28,6 +28,7 @@ public class NoteService {
         this.noteRepository = noteRepository;
     }
 
+
     // TODO: Implement this method to return all notes.
     public List<Note> getAllNotes() {
         throw new UnsupportedOperationException("getAllNotes() not implemented. See TODO in source for details.");
