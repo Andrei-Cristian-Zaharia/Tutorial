@@ -19,11 +19,30 @@ public class Note {
     // Constructors
     public Note() {}
 
+    public Note (Long id, String title, String body){
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
     // Getters and Setters
     public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
+    public String getTitle() {return title;}
+    public String getBody() {return body;}
+    public LocalDateTime getCreatedAt() {return createdAt;}
+    public LocalDateTime getUpdatedAt() {return updatedAt;}
 
-    // TODO: Create a constructor with id, title and body as parameters and initialize createdAt and updatedAt with the current time
-    // TODO: Implement getters and setters for all fields
+    public void setId(Long id) {this.id = id;}
+    public void setId(String title) {this.title = title;}
+    public void setId(String body) {this.body = body;}
+    public void setId(LocalDateTime createdAt) {this.createdAt = createdAt;}
+    public void setId(LocalDateTime updatedAt) {this.updatedAt = updatedAt;}
+
+
+    // [DONE] TODO: Create a constructor with id, title and body as parameters 
+    //       and initialize createdAt and updatedAt with the current time
+    // [DONE] TODO: Implement getters and setters for all fields
     // TODO: Override toString() to provide a readable representation of a Note
 }
