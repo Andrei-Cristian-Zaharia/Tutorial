@@ -38,7 +38,7 @@ PART 1 — Implement every `TODO` that exists in the codebase (these are the bas
      - `// TODO: Implement createNote:` (createNote)
      - `// TODO: Implement updateNote:` (updateNote)
      - `// TODO: Implement deleteNote:` (deleteNote)
-   - Acceptance criteria:xasa
+   - Acceptance criteria:dsadsa
      - `getAllNotes()` returns all notes from the repository (List<Note>).
      - `getNoteById(Long id)` validates `id` and returns `Optional<Note>` from repository; returns Optional.empty() for null/unknown id.
      - `createNote(Note note)` validates `title` and `body` (non-null, non-empty), sets `createdAt` and `updatedAt` to now, saves via `noteRepository.save(...)`, and returns saved note.
