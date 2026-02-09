@@ -1,6 +1,6 @@
-# 📝 Notes API — CRUD Learning Project
+# Notes API — CRUD Learning Project
 
-## 📖 Project Description
+## Project Description
 
 This is a simple REST API for managing **Notes**. A note has a title, body text, and automatic timestamps.
 
@@ -10,124 +10,107 @@ The project models a basic note-taking application — think of it like a simpli
 
 ---
 
-## 🚀 How to Run
-
-### Prerequisites
-
-- **Java 21** (JDK 21 or newer)
-- **Maven** (or use the included Maven wrapper: `mvnw` / `mvnw.cmd`)
-
-### Start the application
-
-**Windows:**
-```bash
-mvnw.cmd spring-boot:run
-```
-
-**Mac / Linux:**
-```bash
-./mvnw spring-boot:run
-```
-
-The API will start on **http://localhost:8080**.
-
-Three sample notes are automatically loaded when the application starts.
-
----
-
-## 📡 Available Endpoints
+## Available Endpoints
 
 | Method   | Path           | Description                        |
 |----------|----------------|------------------------------------|
 | `GET`    | `/notes`       | Returns all notes                  |
 | `GET`    | `/notes/{id}`  | Returns a single note by its ID    |
 | `POST`   | `/notes`       | Creates a new note                 |
-| `PUT`    | `/notes/{id}`  | Updates an existing note           |
+| `PUT`    | `/notes/{id}`  | Replaces an existing note          |
+| `PATCH`  | `/notes/{id}`  | Partially updates an existing note |
 | `DELETE` | `/notes/{id}`  | Deletes a note by its ID           |
 
-### Example: Create a note
-
-```bash
-curl -X POST http://localhost:8080/notes \
-  -H "Content-Type: application/json" \
-  -d '{"title": "My Note", "body": "This is a test note."}'
-```
-
-### Example: Get all notes
-
-```bash
-curl http://localhost:8080/notes
-```
+> Note: `PATCH` is an optional exercise in this project and may not be implemented by default — it's included here as an exercise to add partial updates.
 
 ---
 
-## 🧠 Learning Goals
+## Exercises
 
-By working on this project, you will practice:
+The exercises are split into two parts:
 
-- **CRUD operations** — Create, Read, Update, Delete
-- **HTTP methods** — GET, POST, PUT, DELETE and when to use each
-- **Request and response bodies** — Sending and receiving JSON
-- **HTTP status codes** — 200, 201, 204, 400, 404 and what they mean
-- **Layered architecture** — Controller → Service → Repository separation
-- **Error handling** — Returning proper responses when something goes wrong
-- **Java and Spring Boot basics** — Annotations, dependency injection, REST controllers
+PART 1 — Implement every `TODO` that exists in the codebase (these are the base tasks required to make the starter app functional). Each item below includes the file path, the TODO text found in code, and acceptance criteria.
 
----
+1) src/main/java/com/zaha/tutorial/service/NoteService.java
+   - TODOs found:
+     - `// TODO: Implement this method to return all notes.` (getAllNotes)
+     - `// TODO: Implement this method to return a single note by ID.` (getNoteById)
+     - `// TODO: Implement createNote:` (createNote)
+     - `// TODO: Implement updateNote:` (updateNote)
+     - `// TODO: Implement deleteNote:` (deleteNote)
+   - Acceptance criteria:
+     - `getAllNotes()` returns all notes from the repository (List<Note>).
+     - `getNoteById(Long id)` validates `id` and returns `Optional<Note>` from repository; returns Optional.empty() for null/unknown id.
+     - `createNote(Note note)` validates `title` and `body` (non-null, non-empty), sets `createdAt` and `updatedAt` to now, saves via `noteRepository.save(...)`, and returns saved note.
+     - `updateNote(Long id, Note updatedNote)` finds existing note by id, updates `title`, `body`, and `updatedAt`, and returns Optional.of(updated) or Optional.empty() when not found.
+     - `deleteNote(Long id)` validates id and removes the note, returning true if deleted and false otherwise.
 
-## 🛠️ Tasks for the Learner
+2) src/main/java/com/zaha/tutorial/repository/NoteRepository.java
+   - TODOs found:
+     - `// TODO: Implement this method to return a note with the given ID` (findById)
+     - `// TODO: Implement this method to delete a note with the given ID` (deleteById)
+     - `// TODO: Implement an update method that finds an existing note by ID and replaces its fields.`
+     - `// TODO: Implement a method to check if a note with a given ID exists (existsById).`
+   - Acceptance criteria:
+     - `findById(Long id)` returns Optional.of(note) when found, Optional.empty() otherwise; handle null id safely.
+     - `deleteById(Long id)` removes the note by id and returns whether deletion occurred.
+     - `update(Note note)` (or `updateById(Long id, Note updates)`) modifies the existing in-memory entry.
+     - `existsById(Long id)` returns true/false and can be used by service/controller logic.
 
-Work through these tasks in order. Each one builds on the previous:
+3) src/main/java/com/zaha/tutoria l/controller/NoteController.java
+   - TODOs found in each endpoint method (getAllNotes, getNoteById, createNote, updateNote, deleteNote): `// TODO: Implement endpoint behavior`
+   - Acceptance criteria:
+     - Controller endpoints call the corresponding service methods.
+     - Map service results to appropriate HTTP responses:
+       - 200 OK with body for successful GET/PUT
+       - 201 Created for successful POST (include body)
+       - 204 No Content for successful DELETE
+       - 400 Bad Request for validation failures
+       - 404 Not Found when resource is missing
+     - Prefer returning structured JSON error bodies (optional: via `@ControllerAdvice`).
 
-- [ ] **Implement the `updateNote` method in `NoteService`** — Find the existing note, update its fields, and return it.
-- [ ] **Implement the `PUT /notes/{id}` endpoint in `NoteController`** — Wire it up to the service method you just wrote.
-- [ ] **Add input validation in `NoteService.createNote()`** — Reject notes with empty or null titles/bodies.
-- [ ] **Handle validation errors in `NoteController.createNote()`** — Catch exceptions and return HTTP 400.
-- [ ] **Improve the 404 response in `getNoteById()`** — Return a JSON error body instead of an empty response.
-- [ ] **Add `toString()` to the `Note` model** — Useful for logging and debugging.
-- [ ] **Implement `existsById()` in `NoteRepository`** — A utility method to check if a note exists.
-- [ ] **Implement `update()` in `NoteRepository`** — Update a note's fields in the in-memory list.
-- [ ] **Replace in-memory storage with a real database** — Use Spring Data JPA with H2 or MySQL.
-- [ ] **Add pagination to `GET /notes`** — Return notes in pages instead of all at once.
+4) src/main/java/com/zaha/tutorial/seed/DataSeeder.java
+   - TODOs found:
+     - `//TODO: After implementing the repository, uncomment this class to load sample data.`
+     - `//      TODO: Create 3 sample notes and save them to the repository by using the repository's save() method`
+   - Acceptance criteria:
+     - Un-comment the `@Component` DataSeeder when repository methods are implemented.
+     - `run()` should create and save 3 sample notes so that the app has data on startup.
 
----
-
-## 🧪 Optional Challenges
-
-If you finish the tasks above and want more practice:
-
-- [ ] **Add search/filtering** — Find notes by title (e.g., `GET /notes?title=shopping`).
-- [ ] **Add sorting** — Sort notes by creation date or title (e.g., `GET /notes?sort=createdAt`).
-- [ ] **Add unit tests** — Write tests for the service layer using JUnit and Mockito.
-- [ ] **Add Swagger/OpenAPI docs** — Use `springdoc-openapi` to auto-generate API documentation.
-- [ ] **Create an error response class** — A reusable object for returning structured error messages.
-- [ ] **Add a `PATCH` endpoint** — Allow partial updates (only update the fields that are provided).
-
----
-
-## 📁 Project Structure
-
-```
-src/main/java/com/zaha/tutorial/
-├── TutorialApplication.java        # Main entry point
-├── controller/
-│   └── NoteController.java         # REST endpoints
-├── service/
-│   └── NoteService.java            # Business logic (has TODOs)
-├── repository/
-│   └── NoteRepository.java         # In-memory data storage (has TODOs)
-├── model/
-│   └── Note.java                   # The Note entity
-└── seed/
-    └── DataSeeder.java             # Loads sample data on startup
-```
+Notes on PART 1
+- These TODOs are the minimal, required work to make the provided starter API functional. Implementing them in the order above (repository → service → controller → seeder) is recommended because higher layers depend on lower layers.
 
 ---
 
-## 💡 Tips
+PART 2 — Remaining exercises (higher-level or optional tasks already present in the README)
 
-- Use a tool like **Postman**, **Insomnia**, or **curl** to test the API.
-- Read the TODO comments in the code — they explain exactly what to do.
-- Start with the service layer, then move to the controller.
-- When in doubt, look at how the existing working methods are implemented and follow the same pattern.
-- Don't be afraid to experiment — the data resets every time you restart the app!
+These are the remaining exercises from the README (kept as higher-level or optional challenges). Work on these after completing PART 1.
+
+1. Add `PATCH /notes/{id}` (advanced)
+   - Allow partial updates; only change fields present in the request. Consider a nullable DTO or `JsonMerge` behavior.
+
+2. Pagination, filtering, and sorting (optional)
+   - Add pagination to `GET /notes` and/or add filtering by title and sorting by `createdAt` or `title`.
+
+3. Replace the in-memory storage with Spring Data JPA (advanced)
+   - Implement a JPA-backed repository using H2 (in-memory) for easy local tests or MySQL for a persistent store.
+   - Add entity annotations, repository interfaces, and migration scripts if needed.
+
+4. Add tests and CI (recommended)
+   - Unit tests for the service layer (JUnit + Mockito).
+   - Integration tests for controller endpoints (Spring Boot Test or TestRestTemplate).
+
+5. Add OpenAPI/Swagger docs (optional)
+   - Use `springdoc-openapi` to auto-generate API docs and make it easy to explore endpoints.
+
+6. Add structured error responses and global exception handling
+   - Create an error response class and an `@ControllerAdvice` to centralize mapping exceptions to HTTP responses (400/404/500).
+
+7. Polish and extras (bonus)
+   - Add `toString()` to the `Note` model for better logging.
+   - Improve logging and add a simple request/response logging filter.
+   - Add DTOs if you want to decouple internal model from API surface.
+
+---
+
+After completing PART 1 and PART 2, update this README to mark completed exercises and add any notes about edge cases you discovered while implementing the code.
