@@ -1,6 +1,7 @@
 package com.zaha.tutorial.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a simple Note entity.
@@ -72,10 +73,11 @@ public class Note {
 
     @Override
     public String toString() {
+        DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         return "Note{" + "id=" + id + ", title='" + title + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                "\nbody: \n" + body + "\n}";
+                ", createdAt=" + createdAt.format(formatObj) +
+                ", updatedAt=" + updatedAt.format(formatObj) +
+                ", body= '" + body + "'}\n";
     }
 
     // [DONE] TODO: Create a constructor with id, title and body as parameters
