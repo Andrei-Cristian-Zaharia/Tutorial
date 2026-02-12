@@ -33,7 +33,10 @@ public class NoteRepository {
     }
 
     public Note save(Note note) {
-        note.setId(idCounter.getAndIncrement());
+        // [DONE] TODO: verify if note already exist before increment the id
+        if (note.getId() == null ){
+            note.setId(idCounter.getAndIncrement());
+        }
         notes.add(note);
         return note;
     }

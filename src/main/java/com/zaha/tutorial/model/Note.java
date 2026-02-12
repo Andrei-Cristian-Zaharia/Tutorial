@@ -77,7 +77,7 @@ public class Note {
         return "Note{" + "id=" + id + ", title='" + title + '\'' +
                 ", createdAt=" + createdAt.format(formatObj) +
                 ", updatedAt=" + updatedAt.format(formatObj) +
-                ", body= '" + body + "'}\n";
+                ", body= '" + body + "'}";
     }
 
     // [DONE] TODO: Create a constructor with id, title and body as parameters

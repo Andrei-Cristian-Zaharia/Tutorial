@@ -34,7 +34,7 @@ public class DataSeeder implements CommandLineRunner {
         noteRepository.save(note2);
         noteRepository.save(note3);
         noteRepository.save(note1);
-        System.out.println("find by id2: " + noteRepository.findById(2L));
+        System.out.println("find by id6: " + noteRepository.findById(null));
         System.out.println("find all: " + noteRepository.findAll());
 
 
