@@ -31,7 +31,9 @@ public class NoteController {
         // TODO: Implement endpoint behavior
         // - Call noteService.getAllNotes()
         // - Return HTTP 200 with the list of notes
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+        List<Note> notes = noteService.getAllNotes();
+        return ResponseEntity.ok(notes);
+//        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
     @GetMapping("/{id}")
