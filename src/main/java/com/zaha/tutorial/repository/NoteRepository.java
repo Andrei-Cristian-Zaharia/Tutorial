@@ -33,11 +33,12 @@ public class NoteRepository {
     }
 
     public Note save(Note note) {
-        // [DONE] TODO: verify if note already exist before increment the id
+        // [DONE] TODO: verify if note already exist before increment the id.
+        // TODO: if i want to save same note, ignore
         if (note.getId() == null ){
             note.setId(idCounter.getAndIncrement());
+            notes.add(note);
         }
-        notes.add(note);
         return note;
     }
 

@@ -29,6 +29,12 @@ public class Note {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public Note(String title, String body) {
+        this.title = title;
+        this.body = body;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
 
     // Getters and Setters
     public Long getId() {
@@ -77,7 +83,7 @@ public class Note {
         return "Note{" + "id=" + id + ", title='" + title + '\'' +
                 ", createdAt=" + createdAt.format(formatObj) +
                 ", updatedAt=" + updatedAt.format(formatObj) +
-                ", body= '" + body + "'}";
+                ", body= '" + body + "'\n}";
     }
 
     // [DONE] TODO: Create a constructor with id, title and body as parameters

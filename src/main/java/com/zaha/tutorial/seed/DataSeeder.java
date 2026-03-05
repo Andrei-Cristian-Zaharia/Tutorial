@@ -28,12 +28,18 @@ public class DataSeeder implements CommandLineRunner {
     @Override
     public void run(String @NonNull ... args)  {
         Note note1 = new Note(1L, "T1", "body1");
-        Note note2 = new Note(2L, "T2", "body2");
+        Note note2 = new Note("T2", "body2");
         Note note3 = new Note(3L, "T3", "body3");
-        noteRepository.save(note1);
+//        noteRepository.save(note1);
         noteRepository.save(note2);
-        noteRepository.save(note3);
-        noteRepository.save(note1);
+//        noteRepository.save(note3);
+//        noteRepository.save(note1);
+        System.out.println(note2.toString());
+        noteRepository.save(note2);
+//        noteRepository.save(new Note());
+        noteRepository.updateById(1L, "T11", "body111");
+
+
         System.out.println("find by id6: " + noteRepository.findById(null));
         System.out.println("find all: " + noteRepository.findAll());
 
